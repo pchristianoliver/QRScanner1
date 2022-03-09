@@ -86,7 +86,11 @@ public class MainActivity extends AppCompatActivity {
                 API_URL,
                 null,
                 response -> {
-                    Log.e( "getUserHealthStatus: ", response.toString());
+                    try {
+                        Log.e( "getUserHealthStatus: ", response.get("symptomName").toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 },
                 error -> Log.e("Rest_Response", error.toString())
         );
