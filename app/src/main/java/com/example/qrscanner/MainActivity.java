@@ -77,8 +77,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void getUserHealthStatus() {
+        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Symptoms";
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                API_URL,
+                null,
+                response -> {
+                    Log.e( "getUserHealthStatus: ", response.toString());
+                },
+                error -> Log.e("Rest_Response", error.toString())
+        );
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                1500,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+        requestQueue.add(jsonObjectRequest);
+    }
+
     public void saveLog(JSONObject activityLog) {
-        Log.e( "saveLog: ", activityLog.toString() );
         String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/UserHealthStatus";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
