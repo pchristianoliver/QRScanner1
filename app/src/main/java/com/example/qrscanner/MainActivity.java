@@ -65,19 +65,20 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    JSONObject activityLog = null;
+
     public void getJsonObject(String object) {
+        JSONObject activityLog = null;
         try {
             activityLog = new JSONObject(object);
             activityLog.put("status", "Healthy");
             activityLog.put("activityDate", Calendar.getInstance().getTime().toString());
+            saveLog(activityLog);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        saveLog();
     }
 
-    public void saveLog() {
+    public void saveLog(JSONObject activityLog) {
         String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/ActivityLogs";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
