@@ -70,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
         JSONObject activityLog = null;
         try {
             activityLog = new JSONObject(object);
-            activityLog.put("status", "Healthy");
-            activityLog.put("activityDate", Calendar.getInstance().getTime().toString());
+            activityLog.put("dateTime", "2022-03-11T13:34:00.000");
             saveLog(activityLog);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -79,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveLog(JSONObject activityLog) {
-        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/ActivityLogs";
+        Log.e( "saveLog: ", activityLog.toString() );
+        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/UserHealthStatus";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
