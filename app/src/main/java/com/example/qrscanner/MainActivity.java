@@ -65,21 +65,29 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    JSONObject activityLog = null;
     public void getJsonObject(String object) {
-        JSONObject userHealthStatus = null;
         try {
-            userHealthStatus = new JSONObject(object);
-            userHealthStatus.put("dateTime", Calendar.getInstance().getTime().toString());
+            activityLog = new JSONObject(object);
+            activityLog.put("status", "Healthy");
+            activityLog.put("activityDate", Calendar.getInstance().getTime().toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        Log.e("userData", userHealthStatus.toString());
+        saveLog();
     }
 
-    public void getUserInformation(int id) {
-        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Users/" + id;
+    public void saveLog() {
+        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/ActivityLogs";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                API_URL,
+                activityLog,
+                response -> Log.e("Rest Response", "Success"),
+                error -> Log.e("Rest Response", "Failed")
+        );
 
+        requestQueue.add(jsonObjectRequest);
     }
 }
