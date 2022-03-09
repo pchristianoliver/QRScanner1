@@ -4,14 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(MainActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        getJsonObject(result.getText());
                     }
                 });
             }
@@ -54,5 +65,21 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    public void getJsonObject(String object) {
+        JSONObject userHealthStatus = null;
+        try {
+            userHealthStatus = new JSONObject(object);
+            userHealthStatus.put("dateTime", Calendar.getInstance().getTime().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+        Log.e("userData", userHealthStatus.toString());
+    }
+
+    public void getUserInformation(int id) {
+        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Users/" + id;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+    }
 }
