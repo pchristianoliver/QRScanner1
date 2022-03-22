@@ -153,18 +153,11 @@ public class MainActivity extends AppCompatActivity {
                 null,
                 response -> {
                     try {
-                        if(response.getString("response") == "True") {
-                            activityLog.put("status", "With Symptoms");
-                        } else {
-                            activityLog.put("status", "Healthy");
-                        }
-
-                        status.setText(activityLog.getString("status"));
+                        activityLog.put("status", response.getString("response"));
+                        status.setText(response.getString("response"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
-                    Log.e("Check", activityLog.toString());
                 },
                 error -> Log.e("Rest_ResponseSYm", error.toString())
         );
