@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mCodeScanner.startPreview();
-                save_btn.setVisibility(View.GONE);
+                //save_btn.setVisibility(View.GONE);
                 activityLog = null;
             }
         });
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        save_btn.setVisibility(View.VISIBLE);
+        //save_btn.setVisibility(View.VISIBLE);
     }
 
     public void GetUserHealthStatus(String id) {
@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         activityLog.put("status", response.getString("response"));
                         status.setText(response.getString("response"));
+                        SaveLog();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -205,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("SaveLog: ", response.toString());
                     Toast.makeText(this, "Saved to log", Toast.LENGTH_SHORT).show();
                     save_btn.setVisibility(View.GONE);
+                    mCodeScanner.stopPreview();
                 },
                 error -> Log.e("Rest Response", "Failed")
         );
