@@ -128,14 +128,13 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         temperature.setText(response.get("temperature").toString());
                         activityLog.put("healthStatusId", response.get("id"));
-                        CheckIfUserHasSymptoms(response.get("id").toString());
+                        CheckIfUserHasSymptoms(String.valueOf(response.get("id")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 },
                 error -> Log.e("Rest_Response", error.toString())
         );
-
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 1500,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -145,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void CheckIfUserHasSymptoms(String id) {
+        Log.e("_healthStatusId", id);
         String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Symptoms/check/" + id;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         @SuppressLint("ResourceAsColor") JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
