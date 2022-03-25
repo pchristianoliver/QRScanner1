@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;
     TextView name, temperature, status;
     Button save_btn;
-    public int buildingId = 1;
+    public int buildingId = 2;
     public String userId;
     JSONObject activityLog = new JSONObject();
 
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void GetUserHealthStatus(String id) {
-        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/UserHealthStatus/" + id;
+        String API_URL = "https://mclogapi20220325102303.azurewebsites.net/api/UserHealthStatus/" + id;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void CheckIfUserHasSymptoms(String id) {
         Log.e("_healthStatusId", id);
-        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Symptoms/check/" + id;
+        String API_URL = "https://mclogapi20220325102303.azurewebsites.net/api/Symptoms/check/" + id;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         @SuppressLint("ResourceAsColor") JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET,
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void GetUserFullName(String id) {
-        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/Users/" + id;
+        String API_URL = "https://mclogapi20220325102303.azurewebsites.net/api/Users/" + id;
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void SaveLog() {
-        String API_URL = "https://mclogapi20220308122258.azurewebsites.net/api/ActivityLogs";
+        String API_URL = "https://mclogapi20220325102303.azurewebsites.net/api/ActivityLogs";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.POST,
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 activityLog,
                 response -> {
                     Log.e("SaveLog: ", response.toString());
-                    Toast.makeText(this, "Saved to log", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Success! Have a nice day", Toast.LENGTH_SHORT).show();
                     save_btn.setVisibility(View.GONE);
                     mCodeScanner.stopPreview();
                 },
